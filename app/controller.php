@@ -4,6 +4,29 @@ if($_POST){
     echo "<pre>" . __FILE__ . ':' . __LINE__ . '<br>';
     var_dump($_POST);
     echo "</pre>";
+}else{
+    // переходим к сути
+    $entity=NULL;
+    if(!empty($url_segments)
+        && isset($url_segments[0])){
+        //die();
+        $entity=$url_segments[0];
+        // назначить опцию по умолчанию (если второго сегмента нет)
+        if(isset($url_segments[1])){
+            if(!$option=trim($url_segments[1])) // /[authors/articles/readers]/
+                $option='read';
+            // проверить, есть ли в адресе id
+            if(!preg_match('/[^\d]/',$option)) { // получили id cущности
+                $entity_id=$option;
+                $option='read';
+            }
+            // проверить является ли полученное значение option валидным
+            if( $option!=='read' && $option!=='create'){
+                $option='wrong';
+            }
+        }else
+            $option=false;
+    }
 }
 require_once  'controllers'. DIRECTORY_SEPARATOR . 'Controller.php';
 
