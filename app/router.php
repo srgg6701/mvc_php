@@ -2,8 +2,13 @@
 // создать путь подключения файлов
 $droot = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR;
 $key_site_name = array_search(SITE_NAME,$arr_uri); //echo "key_site_name = $key_site_name"; die();
-if($key_site_name==2)
-    $droot.= 'projects' . DIRECTORY_SEPARATOR;
+if($key_site_name>1){
+    $cnt=$key_site_name-1;
+    while($cnt){
+        $droot.= $arr_uri[$cnt] . DIRECTORY_SEPARATOR;
+        $cnt--;
+    }
+}
 $droot.=SITE_NAME . DIRECTORY_SEPARATOR;
 
 // получить сегменты URL
@@ -24,10 +29,11 @@ $static_path.= SITE_NAME . '/static/';
 // authors/[id]     - данные сущности по id
 // authors/create   - форма добавления сущности
 //echo "<pre>"; var_dump($url_segments); echo "</pre>";
+$entity=NULL;
 if(!empty($url_segments)
     && isset($url_segments[0])){
      //die();
-    $entity=$url_segments[0]; echo "<h3>".ucfirst($entity)."</h3>";
+    $entity=$url_segments[0];
     // назначить опцию по умолчанию (если второго сегмента нет)
     if(isset($url_segments[1])){
         if(!$option=trim($url_segments[1])) // /[authors/articles/readers]/
@@ -36,7 +42,7 @@ if(!empty($url_segments)
         if(!preg_match('/[^\d]/',$option)) { // получили id cущности
             $entity_id=$option;
             $option='read';
-        } echo "<div>option = $option</div>";
+        }
         // проверить является ли полученное значение option валидным
         if( $option!=='read' && $option!=='create'){
             $option='wrong';
