@@ -12,8 +12,14 @@ if(!empty($url_segments)){
     if(isset($entity)){
         echo "<div>entity = $entity</div>";
         $controller_name = ucfirst($entity) . 'Controller';
-        require_once  'controllers'. DIRECTORY_SEPARATOR . $controller_name . '.php';
-        $controller=new $controller_name();
+        $filename='controllers'. DIRECTORY_SEPARATOR . $controller_name . '.php';
+        if(!file_exists($filename)){
+            $controller=false;
+            $filename='404.php';
+        }
+        else
+            $controller=new $controller_name();
+        require_once $filename;
     }
     if(isset($option)){
         echo "<div>option = $option</div>";
