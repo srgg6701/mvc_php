@@ -1,4 +1,11 @@
 <?php
+// создать путь подключения файлов
+$droot = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR;
+$key_site_name = array_search(SITE_NAME,$arr_uri); //echo "key_site_name = $key_site_name"; die();
+if($key_site_name==2)
+    $droot.= 'projects' . DIRECTORY_SEPARATOR;
+$droot.=SITE_NAME . DIRECTORY_SEPARATOR;
+
 // получить сегменты URL
 $url_segments=array_slice($arr_uri,$uri_index+1);
 $static_path='http://'.$_SERVER['SERVER_NAME'] ;
@@ -8,8 +15,10 @@ $static_path='http://'.$_SERVER['SERVER_NAME'] ;
 if(strstr($_SERVER['HTTP_HOST'], ':'.$_SERVER['SERVER_PORT']))
     $static_path.= ':' . $_SERVER['SERVER_PORT'] . '/';
 $static_path.='/';
+
 if(strstr($_SERVER['REQUEST_URI'], '/projects/'))
     $static_path.='projects/';
+
 $static_path.= SITE_NAME . '/static/';
 // authors/         - список
 // authors/[id]     - данные сущности по id
@@ -34,7 +43,4 @@ if(!empty($url_segments)
         }
     }else
         $option=false;
-
-
-
 }
