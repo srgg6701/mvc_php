@@ -3,4 +3,3 @@ $arr_uri=explode("/",$_SERVER['REQUEST_URI']);
 //echo "<pre>"; var_dump($arr_uri); echo "</pre>"; die();
 $uri_index=(strstr($_SERVER['REQUEST_URI'], '/projects/'))? 2:1;
 define('SITE_NAME',$arr_uri[$uri_index]);
-$url_segments=array_slice($arr_uri,$uri_index+1);

@@ -1,9 +1,10 @@
 <?php
-// путь подключения статических файлов (js,css,images)
+// получить сегменты URL
+$url_segments=array_slice($arr_uri,$uri_index+1);
 $static_path='http://'.$_SERVER['SERVER_NAME'] ;
-//echo "<pre>"; var_dump($_SERVER); echo "</pre>"; //die();
-//echo('static_path = ' . $static_path . "<hr>"); //http://127.0.0.1/
-//die('HOST_NAME = ' . $_SERVER['HOST_NAME']);
+/*  echo "<pre>"; var_dump($_SERVER); echo "</pre>"; //die();
+    echo('static_path = ' . $static_path . "<hr>"); //http://127.0.0.1/
+    die('HOST_NAME = ' . $_SERVER['HOST_NAME']); */
 if(strstr($_SERVER['HTTP_HOST'], ':'.$_SERVER['SERVER_PORT']))
     $static_path.= ':' . $_SERVER['SERVER_PORT'] . '/';
 $static_path.='/';
@@ -13,7 +14,6 @@ if(strstr($_SERVER['REQUEST_URI'], '/projects/')){
 }else
     $segment_index='0';
 $static_path.= SITE_NAME . '/static/';
-//die('static_path = ' . $static_path);
 // authors/         - список
 // authors/[id]     - данные сущности по id
 // authors/create   - форма добавления сущности

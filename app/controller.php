@@ -8,7 +8,6 @@ if($_POST){
 require_once  'controllers'. DIRECTORY_SEPARATOR . 'Controller.php';
 
 if(!empty($url_segments)){
-    require_once 'router.php'; /*echo "<pre>" . __FILE__ . ':' . __LINE__ . '<br>';var_dump($url_segments);echo "</pre>"; */
     // вызвать нужный контроллер
     if(isset($entity)){
         echo "<div>entity = $entity</div>";
