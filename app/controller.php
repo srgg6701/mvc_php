@@ -11,6 +11,7 @@ if(!empty($url_segments)){
     require_once 'router.php'; /*echo "<pre>" . __FILE__ . ':' . __LINE__ . '<br>';var_dump($url_segments);echo "</pre>"; */
     // вызвать нужный контроллер
     if(isset($entity)){
+        echo "<div>entity = $entity</div>";
         $controller_name = ucfirst($entity) . 'Controller';
         require_once  'controllers'. DIRECTORY_SEPARATOR . $controller_name . '.php';
         $controller=new $controller_name();
