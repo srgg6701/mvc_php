@@ -25,14 +25,14 @@ if(!empty($url_segments)){
             $controller=new $controller_name();
             $content.= "<h3>Controller: $controller_name</h3>";
         }
+        if($option){
+            if($option=='wrong')
+                $filename=$droot.'404.php';
+            elseif($option)
+                $content.= "<h4>option = $option</h4><hr/>";
+        }
     }else{
         $content = "<h1>No entity</h1>";
-    }
-    if(isset($option)){
-        if($option=='wrong')
-            $filename=$droot.'404.php';
-        elseif($option)
-            $content.= "<h4>option = $option</h4><hr/>";
     }
     if(isset($entity_id)){
         $content.=  "<div>entity_id = $entity_id</div>";

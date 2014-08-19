@@ -10,9 +10,19 @@ if($key_site_name>1){
     }
 }
 $droot.=SITE_NAME . DIRECTORY_SEPARATOR;
-
 // получить сегменты URL
 $url_segments=array_slice($arr_uri,$uri_index+1);
+// удалить все параметры GET
+foreach ($url_segments as $i=>$segment) {
+    if(strstr($segment,"?")||strstr($segment,"&")){
+        $sep=strstr($segment,"?")? "?":"&";
+        $s=explode($sep,$segment);
+        unset($s[1]);
+        $url_segments[$i]=$s[0];
+        if($url_segments[$i]=='')
+            unset($url_segments[$i]);
+    }
+} // echo "<pre>"; var_dump($url_segments); echo "</pre>";
 $static_path='http://'.$_SERVER['SERVER_NAME'] ;
 /*  echo "<pre>"; var_dump($_SERVER); echo "</pre>"; //die();
     echo('static_path = ' . $static_path . "<hr>"); //http://127.0.0.1/
