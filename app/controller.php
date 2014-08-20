@@ -1,5 +1,4 @@
 <?php
-
 if($_POST){
     echo "<pre>" . __FILE__ . ':' . __LINE__ . '<br>';
     var_dump($_POST);
@@ -12,9 +11,10 @@ if($_POST){
         //die();
         $entity=$url_segments[0];
         // назначить опцию по умолчанию (если второго сегмента нет)
-        if(isset($url_segments[1])){
+        if(!isset($url_segments[1]))
+            $option='read';
+        else{
             if(!$option=trim($url_segments[1])) // /[authors/articles/readers]/
-                $option='read';
             // проверить, есть ли в адресе id
             if(!preg_match('/[^\d]/',$option)) { // получили id cущности
                 $entity_id=$option;
@@ -24,8 +24,7 @@ if($_POST){
             if( $option!=='read' && $option!=='create'){
                 $option='wrong';
             }
-        }else
-            $option=false;
+        }
     }
 }
 require_once  'controllers'. DIRECTORY_SEPARATOR . 'Controller.php';
@@ -36,30 +35,38 @@ if(!empty($url_segments)){
     if($entity){
         //echo "<div>entity = $entity</div>";
         $controller_name = ucfirst($entity) . 'Controller';
-        $content = "<h1>Entity: " . $entity."</h1><HR>";
-        // файл подключения
+        $content = "<h1>Entity: " . $entity."</h1>controller: $controller_name<HR>";
+        // файл подключения выбранного контроллера
         $filename='app' . DIRECTORY_SEPARATOR .'controllers'. DIRECTORY_SEPARATOR . $controller_name . '.php';
         // нет такого файла
         if(!file_exists($droot.$filename)){
             $controller=false;
-            $filename=$droot.'404.php';
+            $filename=false;
         }
+        $option_state=false;
+        if($option){
+            if($option=='wrong')
+                $filename=false;
+            elseif($option)
+                $option_state = "<h4>option = $option</h4><hr/>";
+        }
+        if($filename===false)
+            $filename=$droot.'404.php';
+        require_once $filename;
+
+        // контроллер существует
         if(class_exists($controller_name)){
             $controller=new $controller_name();
             $content.= "<h3>Controller: $controller_name</h3>";
-        }
-        if($option){
-            if($option=='wrong')
-                $filename=$droot.'404.php';
-            elseif($option)
-                $content.= "<h4>option = $option</h4><hr/>";
-        }
+        }else
+            $content.= "<h3>Контроллер $controller_name не найден</h3>";
+
+        if($option_state) $content.= $option_state;
+
     }else{
         $content = "<h1>No entity</h1>";
     }
     if(isset($entity_id)){
         $content.=  "<div>entity_id = $entity_id</div>";
     }
-    if($filename)
-        require_once $filename;
 }
