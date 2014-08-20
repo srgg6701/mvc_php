@@ -11,9 +11,10 @@ if($_POST){
         //die();
         $entity=$url_segments[0];
         // назначить опцию по умолчанию (если второго сегмента нет)
-        if(isset($url_segments[1])){
+        if(!isset($url_segments[1]))
+            $option='read';
+        else{
             if(!$option=trim($url_segments[1])) // /[authors/articles/readers]/
-                $option='read';
             // проверить, есть ли в адресе id
             if(!preg_match('/[^\d]/',$option)) { // получили id cущности
                 $entity_id=$option;
@@ -23,8 +24,7 @@ if($_POST){
             if( $option!=='read' && $option!=='create'){
                 $option='wrong';
             }
-        }else
-            $option=false;
+        }
     }
 }
 require_once  'controllers'. DIRECTORY_SEPARATOR . 'Controller.php';

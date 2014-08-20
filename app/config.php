@@ -1,5 +1,5 @@
 <?php
-if($_GET['show']){
+if(isset($_GET['show'])){
     $show=$_GET['show'];
     if($show=='server'){
         echo "<pre>";
