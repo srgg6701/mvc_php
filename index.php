@@ -1,7 +1,7 @@
 <?php
 // установить имя сайта
 require_once 'app/config.php';
-require_once 'app/router.php'; /*echo "<pre>" . __FILE__ . ':' . __LINE__ . '<br>';var_dump($url_segments);echo "</pre>"; */
+require_once 'app/router.php';
 require_once 'app/controller.php';
 if(!isset($content)) $content='';
 ?><!doctype html>

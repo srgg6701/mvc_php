@@ -2,8 +2,7 @@
 // получить сегменты URL
 $url_segments=array_slice($arr_uri,$uri_index+1);
 $static_path='http://'.$_SERVER['SERVER_NAME'] ;
-/*  echo "<pre>"; var_dump($_SERVER); echo "</pre>"; //die();
-    echo('static_path = ' . $static_path . "<hr>"); //http://127.0.0.1/
+/*  echo('static_path = ' . $static_path . "<hr>"); //http://127.0.0.1/
     die('HOST_NAME = ' . $_SERVER['HOST_NAME']); */
 if(strstr($_SERVER['HTTP_HOST'], ':'.$_SERVER['SERVER_PORT']))
     $static_path.= ':' . $_SERVER['SERVER_PORT'] . '/';
@@ -27,7 +26,7 @@ if(!empty($url_segments)
         if(!preg_match('/[^\d]/',$option)) { // получили id cущности
             $entity_id=$option;
             $option='read';
-        } echo "<div>option = $option</div>";
+        } echo "<div>30: option = $option</div>";
         // проверить является ли полученное значение option валидным
         if( $option!=='read' && $option!=='create'){
             $option='wrong';
