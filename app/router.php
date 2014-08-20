@@ -28,46 +28,14 @@ foreach ($url_segments as $i=>$segment) {
 } // echo "<pre>"; var_dump($url_segments); echo "</pre>";
 // создадим статический путь подключения файлов по http
 $static_path='http://'.$_SERVER['SERVER_NAME'] ;
-/*  echo('static_path = ' . $static_path . "<hr>"); //http://127.0.0.1/
+/*  echo "<pre>"; var_dump($_SERVER); echo "</pre>"; //die();
+    echo('static_path = ' . $static_path . "<hr>"); //http://127.0.0.1/
     die('HOST_NAME = ' . $_SERVER['HOST_NAME']); */
 // если в адресе есть порт, добавим его
 if(strstr($_SERVER['HTTP_HOST'], ':'.$_SERVER['SERVER_PORT']))
     $static_path.= ':' . $_SERVER['SERVER_PORT'] . '/';
 $static_path.='/';
-<<<<<<< HEAD
-if(strstr($_SERVER['REQUEST_URI'], '/projects/'))
-    $static_path.='projects/';
-$static_path.= SITE_NAME . '/static/';
-// authors/         - список
-// authors/[id]     - данные сущности по id
-// authors/create   - форма добавления сущности
-//echo "<pre>"; var_dump($url_segments); echo "</pre>";
-if(!empty($url_segments)
-    && isset($url_segments[0])){
-     //die();
-    $entity=$url_segments[0]; echo "<h3>".ucfirst($entity)."</h3>";
-    // назначить опцию по умолчанию (если второго сегмента нет)
-    if(isset($url_segments[1])){
-        if(!$option=trim($url_segments[1])) // /[authors/articles/readers]/
-            $option='read';
-        // проверить, есть ли в адресе id
-        if(!preg_match('/[^\d]/',$option)) { // получили id cущности
-            $entity_id=$option;
-            $option='read';
-        } echo "<div>30: option = $option</div>";
-        // проверить является ли полученное значение option валидным
-        if( $option!=='read' && $option!=='create'){
-            $option='wrong';
-        }
-    }else
-        $option=false;
-
-
-
-}
-=======
 if(isset($addUrlSegments))
     $static_path.=implode("/",$addUrlSegments).'/';
 // добавим к статическому адресу имя сайта
 $static_path.= SITE_NAME . '/static/';
->>>>>>> 5ed26bc7b7288d9d7962a2f31ba4d76b8514e7cc

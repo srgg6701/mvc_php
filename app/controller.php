@@ -1,5 +1,4 @@
 <?php
-
 if($_POST){
     echo "<pre>" . __FILE__ . ':' . __LINE__ . '<br>';
     var_dump($_POST);
