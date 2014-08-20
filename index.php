@@ -1,9 +1,12 @@
 <?php
+$content='';
 // установить имя сайта
 require_once 'app/config.php';
+<<<<<<< HEAD
 require_once 'app/router.php';
+=======
+>>>>>>> 5ed26bc7b7288d9d7962a2f31ba4d76b8514e7cc
 require_once 'app/controller.php';
-if(!isset($content)) $content='';
 ?><!doctype html>
 <html>
     <head>
