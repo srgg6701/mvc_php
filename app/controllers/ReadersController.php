@@ -12,14 +12,14 @@ class ReadersController extends Controller {
 
     public static function testStatic($home_name){
         //static $counter=1;
-        echo "<div>" . __METHOD__ . "</div>";
+        showMethodName(__METHOD__);
         //$counter+=1;
         echo "<div>Before: ".ReadersController::$home."</div>";
         self::$home=$home_name;
         echo "<div>After: ".ReadersController::$home."</div>";
     }
     public function testCommon($home_name){
-        echo "<div>" . __METHOD__ . "</div>";
+        showMethodName(__METHOD__);
         echo "<div>Before: ".$this->surname."</div>";
         $this->surname=$home_name;
         echo "<div>After: ".$this->surname."</div>";

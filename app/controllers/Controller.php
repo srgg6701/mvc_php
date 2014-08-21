@@ -1,24 +1,73 @@
 <?php
 
 class Controller{
+    // экземпляр модели
+    protected $model=NULL;
+    // данные модели
+    protected $modelData=NULL;
+
+    // исключительно для тестирования:
+    public $temp_data;
+
     protected function redirect(){
 
     }
-    protected function getModel($model_name){
-        require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .
-                     'models' . DIRECTORY_SEPARATOR .
-                     ucfirst($model_name) . 'Model.php';
+
+    /**
+     * Создать экземпляр нужной модели и сохранить как член класса
+     * @param $model_name
+     */
+    protected function setModel($model_name){
+
+        $this->temp_data.=showMethodName(__METHOD__, 'sky');
+
+        require_once dirname(__FILE__) . DIRECTORY_SEPARATOR .
+                                  '..' . DIRECTORY_SEPARATOR .
+                              'models' . DIRECTORY_SEPARATOR .
+                                        ucfirst($model_name) . 'Model.php';
         $modelName = $model_name . "Model";
-        return new $modelName();
+        $this->model= new $modelName();
+        return true;
     }
+
+    /**
+     * Создать экземпляр нужного представления вернуть дочернему классу
+     * @param $view_name
+     */
+    protected function setView($view_name){
+
+            $this->temp_data.=showMethodName(__METHOD__, 'sky');
+
+        require_once dirname(__FILE__) . DIRECTORY_SEPARATOR .
+                                  '..' . DIRECTORY_SEPARATOR .
+                               'views' . DIRECTORY_SEPARATOR .
+                                         ucfirst($view_name) . 'View.php';
+        $viewName = $view_name . "View";
+        return new $viewName();
+    }
+
     protected function create($post){
 
     }
-    protected function read($model,$query,$id=NULL){
-        echo "<div>" . __METHOD__ . "</div>";
-        echo "<pre>"; var_dump($model); echo "</pre>";
-        echo "<div>query: ".$query."</div>";
-        echo "<div>id: ".$id."</div>";
+
+    /**
+     * Получить данные модели
+     * @param $query
+     * @param null $id
+     * @return string
+     */
+    protected function read($query,$id=NULL){
+
+            $this->temp_data.=showMethodName(__METHOD__, 'sky');
+
+            $data = "<div>query = $query</div>";
+            if($id) $data.= "<div>id = $id</div>";
+            $data.= "<div>Model data will come here...</div>";
+
+        // сохранить данные, полученные из модели как член класса
+        $this->modelData=$data;
+
+        return true;
     }
     protected function update($id){
 

@@ -5,16 +5,16 @@ class TestController extends Controller{
     public static $state='Unknown';
 
     public function __construct(){
-        echo "<div>".__METHOD__."</div>";
+        echo showMethodName(__METHOD__);
 
 
     }
 
     public function testStatic(){
-        echo "<div>".__METHOD__."</div>";
+        echo showMethodName(__METHOD__);
     }
 
     public function testCommon(){
-        echo "<div>".__METHOD__."</div>";
+        echo showMethodName(__METHOD__);
     }
 }

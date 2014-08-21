@@ -27,6 +27,12 @@ body *{
     margin-bottom: 6px;
     padding: 10px;
 }
+.info.orange{
+    background-color: orange;
+}
+.info.sky{
+    background-color: lightskyblue;
+}
 .info >div{
      background-color: #fff;
      margin-top: 6px;

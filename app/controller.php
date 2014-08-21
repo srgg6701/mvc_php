@@ -6,9 +6,7 @@ if($_POST){
 }else{
     // переходим к сути
     $entity = $entity_id=NULL;
-    if(!empty($url_segments)
-        && isset($url_segments[0])){
-        //die();
+    if(!empty($url_segments) && isset($url_segments[0])){
         $entity=$url_segments[0];
         // назначить опцию по умолчанию (если второго сегмента нет)
         if(!isset($url_segments[1]))
@@ -26,19 +24,17 @@ if($_POST){
             }
         }
     }
-}   //echo "<div>file: ".__FILE__." : " . __LINE__ . "<HR>option: ".$option."</div>";
+}
 require_once  'controllers'. DIRECTORY_SEPARATOR . 'Controller.php';
 
 if(!empty($url_segments)){
     $filename=NULL;
     // вызвать нужный контроллер
     if($entity){
-        echo "<div>entity = $entity</div>";
         $controller_name = ucfirst($entity) . 'Controller';
         $content = "<h1>Entity: " . $entity."</h1>controller: $controller_name<HR>";
         // файл подключения выбранного контроллера
         $filename='app' . DIRECTORY_SEPARATOR .'controllers'. DIRECTORY_SEPARATOR . $controller_name . '.php';
-        echo "<div class='info'>file: " . __FILE__ . " : " . __LINE__ . "<HR>filename: ".$droot.$filename."</div>";
         // нет такого файла
         if(!file_exists($droot.$filename)){
             $controller=false;
@@ -50,7 +46,10 @@ if(!empty($url_segments)){
                 $filename=false;
             elseif($option)
                 $option_state = "<h4>option = $option</h4><hr/>";
-        }   echo "<div class='info'>file: " . __FILE__ . " : " . __LINE__ . "<HR>filename: ".$filename."</div>";
+        }
+
+        if($option_state) $content.= $option_state;
+
         if($filename===false)
             $filename=$droot.'404.php';
         require_once $filename;
@@ -59,10 +58,9 @@ if(!empty($url_segments)){
         if(class_exists($controller_name)){
             // СОЗДАТЬ ЭКЗЕМПЛЯР КОНТРОЛЛЕРА
             $controller=new $controller_name($option,$entity_id);
+            $content.=$controller->content;
         }else
             $content.= "<h3>Контроллер $controller_name не найден</h3>";
-
-        if($option_state) $content.= $option_state;
 
     }else{
         $content = "<h1>No entity</h1>";

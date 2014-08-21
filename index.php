@@ -1,5 +1,16 @@
 <?php
 header('Content-Type: charset=utf-8');
+
+/**
+ * Тестовая функция, убрать в реальном проекте
+ * @param $method
+ * @return string
+ */
+function showMethodName($method, $color='orange'){
+    return "<div class='info ". $color ."'>" . $method . "</div>";
+}
+
+
 $content='';
 // установить имя сайта
 require_once 'app/config.php';
