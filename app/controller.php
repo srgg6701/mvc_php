@@ -5,7 +5,7 @@ if($_POST){
     echo "</pre>";
 }else{
     // переходим к сути
-    $entity=NULL;
+    $entity = $entity_id=NULL;
     if(!empty($url_segments)
         && isset($url_segments[0])){
         //die();
@@ -26,7 +26,7 @@ if($_POST){
             }
         }
     }
-}
+}   //echo "<div>file: ".__FILE__." : " . __LINE__ . "<HR>option: ".$option."</div>";
 require_once  'controllers'. DIRECTORY_SEPARATOR . 'Controller.php';
 
 if(!empty($url_segments)){
@@ -38,6 +38,7 @@ if(!empty($url_segments)){
         $content = "<h1>Entity: " . $entity."</h1>controller: $controller_name<HR>";
         // файл подключения выбранного контроллера
         $filename='app' . DIRECTORY_SEPARATOR .'controllers'. DIRECTORY_SEPARATOR . $controller_name . '.php';
+        echo "<div class='info'>file: " . __FILE__ . " : " . __LINE__ . "<HR>filename: ".$droot.$filename."</div>";
         // нет такого файла
         if(!file_exists($droot.$filename)){
             $controller=false;
@@ -49,7 +50,7 @@ if(!empty($url_segments)){
                 $filename=false;
             elseif($option)
                 $option_state = "<h4>option = $option</h4><hr/>";
-        }
+        }   echo "<div class='info'>file: " . __FILE__ . " : " . __LINE__ . "<HR>filename: ".$filename."</div>";
         if($filename===false)
             $filename=$droot.'404.php';
         require_once $filename;
@@ -57,33 +58,7 @@ if(!empty($url_segments)){
         // контроллер существует
         if(class_exists($controller_name)){
             // СОЗДАТЬ ЭКЗЕМПЛЯР КОНТРОЛЛЕРА
-
-            ReadersController::testStatic("Earth");
-            ReadersController::testStatic("Mars");
-            ReadersController::testStatic("Venus");/**/
-            $controller=new $controller_name();
-            $controller->testCommon("Jupiter");
-            $controller->testCommon("Saturn");
-            $controller->testCommon("Uranus");/* Uranus */
-
-            $controller2=new $controller_name();
-            $controller2->testCommon("Jupiter");
-
-            echo "<div>Surname 1: ".$controller->surname."</div>";
-            echo "<div>Surname 1: ".$controller2->surname."</div>";
-            echo "<div>Home: ".ReadersController::$home."</div>";
-
-            $content.= "<h3>Controller: $controller_name</h3>";
-            ob_start();
-            echo "<pre>";
-            echo "Члены класса:<br>";
-            var_dump($controller);
-            echo "Методы класса:<br>";
-            var_dump(get_class_methods($controller_name));
-            echo "</pre>";
-            $scontent = ob_get_contents();
-            ob_end_clean();
-            $content.=$scontent;
+            $controller=new $controller_name($option,$entity_id);
         }else
             $content.= "<h3>Контроллер $controller_name не найден</h3>";
 

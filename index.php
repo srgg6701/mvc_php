@@ -25,7 +25,7 @@ require_once 'app/controller.php'; //
             <section>
                 <?php echo $content;?>
 <?php
-                $controller=new $controller_name();
+                /*$controller=new $controller_name();
                 //==================================================
                 $content.= "<h3>Controller: $controller_name</h3>";
                 echo "<div class='info'>Вызов статического метода через экземпляр класса: <div>";
@@ -34,7 +34,7 @@ require_once 'app/controller.php'; //
                 echo "<div class='info'>Вызов статической переменной через экземпляр класса: ";
                 echo "<div>state: ".$controller->state."</div>";
                 echo "</div>";
-                echo "<div>state: ".TestController::$state."</div>";
+                echo "<div>state: ".TestController::$state."</div>";*/
 ?>
             </section>
         </main>
