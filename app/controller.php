@@ -33,7 +33,7 @@ if(!empty($url_segments)){
     $filename=NULL;
     // вызвать нужный контроллер
     if($entity){
-        //echo "<div>entity = $entity</div>";
+        echo "<div>entity = $entity</div>";
         $controller_name = ucfirst($entity) . 'Controller';
         $content = "<h1>Entity: " . $entity."</h1>controller: $controller_name<HR>";
         // файл подключения выбранного контроллера

@@ -1,8 +1,14 @@
 <?php
 $arr_uri=explode("/",$_SERVER['REQUEST_URI']); //echo "<pre>"; var_dump($arr_uri); echo "</pre>"; die();
 // создать путь подключения файлов
-$droot = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR;
-$key_site_name = array_search(SITE_NAME,$arr_uri); //echo "key_site_name = $key_site_name"; die();
+$droot = "c:/WebServers/home/localhost/www/";
+
+//$_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR;
+
+echo "<div>droot = $droot</div>"; //die();echo "<div>SITE_NAME = ".SITE_NAME."</div>";
+echo "<pre>" . __FILE__ . ':' . __LINE__ . '<br>';
+var_dump($arr_uri);echo "</pre>";
+$key_site_name = array_search(SITE_NAME,$arr_uri); echo "key_site_name = $key_site_name"; die();
 if($key_site_name>1){
     $addUrlSegments=array(); // то, что будем добавлять к Url, если между HTTP_HOST и именем сайта есть ещё что-то
     $cnt=$key_site_name-1;
@@ -15,6 +21,8 @@ if($key_site_name>1){
 $droot.=SITE_NAME . DIRECTORY_SEPARATOR;
 // получить сегменты URL
 $url_segments=array_slice($arr_uri,$key_site_name+1);
+echo "<pre>" . __FILE__ . ':' . __LINE__ . '<br>';
+var_dump($url_segments);echo "</pre>";
 // удалить все параметры GET
 foreach ($url_segments as $i=>$segment) {
     if(strstr($segment,"?")||strstr($segment,"&")){
