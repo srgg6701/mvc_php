@@ -13,8 +13,9 @@ if($_POST){
             $option='read';
         else{
             if(!$option=trim($url_segments[1])) // /[authors/articles/readers]/
+            $non_digital=preg_match("/\D/i",$option);
             // проверить, есть ли в адресе id
-            if(!preg_match('/[^\d]/',$option)) { // получили id cущности
+            if(!$non_digital) { // получили id cущности
                 $entity_id=$option;
                 $option='read';
             }
@@ -32,11 +33,13 @@ if(!empty($url_segments)){
     // вызвать нужный контроллер
     if($entity){
         $controller_name = ucfirst($entity) . 'Controller';
-        $content = "<h1>Entity: " . $entity."</h1><h2>Calling controller: $controller_name<h2>";
+        $content = "<h1>Entity: " . $entity."</h1>"; //<h2>Calling controller: $controller_name<h2>
         // файл подключения выбранного контроллера
         $filename='app' . DIRECTORY_SEPARATOR .'controllers'. DIRECTORY_SEPARATOR . $controller_name . '.php';
         // нет такого файла
         if(!file_exists($droot.$filename)){
+            $content.="<div class='orange'>Неправильный путь подключения файла контроллера: "
+                 . $droot.$filename . "</div>";
             $controller=false;
             $filename=false;
         }
@@ -45,10 +48,14 @@ if(!empty($url_segments)){
             if($option=='wrong')
                 $filename=false;
             elseif($option)
-                $option_state = "<h4>option = $option</h4>";
+                $option_state = "<h2>option = $option</h2>";
         }
 
         if($option_state) $content.= $option_state;
+
+        if(isset($entity_id)){
+            $content.=  "<h3>entity_id = $entity_id</h3>";
+        }
 
         if($filename===false)
             $filename=$droot.'404.php';
@@ -64,8 +71,5 @@ if(!empty($url_segments)){
 
     }else{
         $content = "<h1>No entity</h1>";
-    }
-    if(isset($entity_id)){
-        $content.=  "<div>entity_id = $entity_id</div>";
     }
 }
