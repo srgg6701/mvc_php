@@ -3,7 +3,7 @@ header('Content-Type: charset=utf-8');
 $content='';
 // установить имя сайта
 require_once 'app/config.php';
-require_once 'app/controller.php';
+require_once 'app/controller.php'; //
 ?><!doctype html>
 <html>
 <head>
