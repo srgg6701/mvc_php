@@ -32,7 +32,7 @@ if(!empty($url_segments)){
     // вызвать нужный контроллер
     if($entity){
         $controller_name = ucfirst($entity) . 'Controller';
-        $content = "<h1>Entity: " . $entity."</h1>controller: $controller_name<HR>";
+        $content = "<h1>Entity: " . $entity."</h1><h2>Calling controller: $controller_name<h2>";
         // файл подключения выбранного контроллера
         $filename='app' . DIRECTORY_SEPARATOR .'controllers'. DIRECTORY_SEPARATOR . $controller_name . '.php';
         // нет такого файла
@@ -45,7 +45,7 @@ if(!empty($url_segments)){
             if($option=='wrong')
                 $filename=false;
             elseif($option)
-                $option_state = "<h4>option = $option</h4><hr/>";
+                $option_state = "<h4>option = $option</h4>";
         }
 
         if($option_state) $content.= $option_state;
