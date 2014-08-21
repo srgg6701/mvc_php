@@ -2,8 +2,10 @@
 header('Content-Type: charset=utf-8');
 $content='';
 // установить имя сайта
-require_once 'app/config.php';
-require_once 'app/controller.php';
+//require_once 'app/config.php';
+//require_once 'app/controller.php';
+require_once 'app/controllers/Controller.php';
+require_once 'app/controllers/TestController.php';
 ?><!doctype html>
 <html>
 <head>
@@ -12,7 +14,7 @@ require_once 'app/controller.php';
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link media="screen, projection" rel="stylesheet" type="text/css" href="<?php echo $static_path;?>css/default.css">
+    <link media="screen, projection" rel="stylesheet" type="text/css" href="static/css/default.css">
     <!--<script src="/.js"></script>-->
 </head>
 <body>
@@ -23,11 +25,9 @@ require_once 'app/controller.php';
         </nav>
         <main>
             <section>
-                <?php echo $content;?>
-<?php
-                $controller=new $controller_name();
+                <?php
+                $controller=new TestController();
                 //==================================================
-                $content.= "<h3>Controller: $controller_name</h3>";
                 echo "<div class='info'>Вызов статического метода через экземпляр класса: <div>";
                 $controller->testStatic();
                 echo "OK</div></div>";
@@ -35,7 +35,7 @@ require_once 'app/controller.php';
                 echo "<div>state: ".$controller->state."</div>";
                 echo "</div>";
                 echo "<div>state: ".TestController::$state."</div>";
-?>
+                ?>
             </section>
         </main>
     </div>

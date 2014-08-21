@@ -21,6 +21,20 @@ body *{
     position: fixed;
     right: 10%;
 }
+.info{
+    background-color: #eee;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    padding: 10px;
+}
+.info >div{
+     background-color: #fff;
+     margin-top: 6px;
+     padding: 10px;
+}
+.info >div::after{
+    content:" ";
+}
 .offsetVertical10,
 section{
     padding-top:10px;
